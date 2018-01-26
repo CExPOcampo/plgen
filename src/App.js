@@ -4,6 +4,9 @@ import './App.css';
 import * as _ from 'lodash';
 
 import Dropzone from 'react-dropzone';
+
+import DownloadLink from "react-download-link";
+
 var XLSX = require('xlsx');
 
 const plGenConfig = {
@@ -122,17 +125,22 @@ function processExcelFile(plGenConfig, binaryData) {
 	}
 
 	console.log(results);
+	return results;
+
 }
+
+var results;
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{/*
+
 				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<h1 className="App-title">Welcome to React</h1>
+					{/*<img src={logo} className="App-logo" alt="logo" />*/}
+					<h1 className="App-title">Excel Picklist Generator</h1>
 				</header>
+				{/*
 				<p className="App-intro">
 					To get started, edit <code>src/App.js</code> and save to reload.
 				</p>
@@ -149,7 +157,7 @@ class App extends Component {
 							const fileAsBinaryString = reader.result;
 							// do whatever you want with the file content
 
-							processExcelFile(plGenConfig, fileAsBinaryString);
+							results = processExcelFile(plGenConfig, fileAsBinaryString);
 
 						};
 						reader.onabort = () => console.log('file reading was aborted');
@@ -161,6 +169,13 @@ class App extends Component {
 				>
 					<p> Drop excel files here </p>
 				</Dropzone>
+
+				<DownloadLink
+					filename="test.json"
+					exportFile={() => JSON.stringify(results, null, 2)}
+				>
+						Save to disk
+				</DownloadLink>
 
 			</div>
 		);
