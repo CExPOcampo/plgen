@@ -15,42 +15,6 @@ import { FieldGroup } from './FieldGroup';
 
 var XLSX = require('xlsx');
 
-const plGenConfig = {
-	worksheetTabNum: 16,
-	rowRange: [2, 841],
-	targetColumns: {
-		'A': {
-			name: 'cities'
-		},
-		'D': {
-			name: 'locations',
-			parentColumns: ['A'],
-			relatedData: [
-				{
-					name: 'zip',
-					relatedColumn: 'E'
-				},
-				{
-					name: 'lowerLevelRollup',
-					relatedColumn: 'F'
-				},
-				{
-					name: 'higherLevelRollup',
-					relatedColumn: 'G'
-				},
-				{
-					name: 'region',
-					relatedColumn: 'H'
-				},
-				{
-					name: 'division',
-					relatedColumn: 'I'
-				}
-			]
-		}
-	},
-	outputDir: './picklistGenerated/'
-};
 
 function generatePlGenConfig(appState) {
 	const plGenConfig = {
@@ -170,8 +134,6 @@ function processExcelFile(plGenConfig, binaryData) {
 
 }
 
-var results;
-
 var inputRangeStyle = {
 	'width': '10%',
 	'minWidth': '50px'
@@ -222,6 +184,8 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			results: null,
+			filePrevRef: null,
 			tabNum: 0,
 			rowRangeStart: 0,
 			rowRangeEnd: 0,
@@ -230,6 +194,21 @@ class App extends Component {
 	}
 
 	render() {
+
+		const downloadLinksToRender = [];
+		_.forEach(this.state.results, (result, keyName) => {
+			downloadLinksToRender.push(
+				<div key={'download' + keyName}>
+					<DownloadLink
+						filename={`${keyName}}.json`}
+						exportFile={() => JSON.stringify(result, null, 2)}
+					>
+						{`Save ${keyName}.json to disk`}
+					</DownloadLink>
+				</div>
+			);
+		});
+
 		return (
 			<div className="App">
 
@@ -320,43 +299,60 @@ class App extends Component {
 
 
 				<Dropzone
+					multiple={false}
 					onDrop={(acceptedFiles, rejectedFiles) => {
 						console.log(JSON.stringify(acceptedFiles[0], null, 2));
 						console.log(JSON.stringify(rejectedFiles[0], null, 2));
 
-						var file = acceptedFiles[0];
-						const reader = new FileReader();
-						reader.onload = () => {
-							const fileAsBinaryString = reader.result;
-							// do whatever you want with the file content
-
-							results = processExcelFile(plGenConfig, fileAsBinaryString);
-
-						};
-						reader.onabort = () => console.log('file reading was aborted');
-						reader.onerror = () => console.log('file reading has failed');
-						reader.readAsBinaryString(file);
-
+						if(acceptedFiles && acceptedFiles[0]) {
+							var file = acceptedFiles[0];
+							this.alterState((nextState) => {
+								nextState.filePrevRef = file;
+							});
+						}
 
 					}}
 				>
-					<p> Drop excel files here </p>
+					<p> Drop excel files HERE! </p>
 				</Dropzone>
 
-				<DownloadLink
-					filename="test.json"
-					exportFile={() => JSON.stringify(results, null, 2)}
-				>
-						Save to disk
-				</DownloadLink>
 
 				<button onClick={() => {
 
 					const plGenConfig = generatePlGenConfig(this.state);
 					console.log(plGenConfig);
 
+					const file = this.state.filePrevRef;
+
+					const reader = new FileReader();
+					reader.onload = () => {
+						const fileAsBinaryString = reader.result;
+						// do whatever you want with the file content
+
+						const finalResults = processExcelFile(plGenConfig, fileAsBinaryString);
+						this.alterState((nextState) => {
+							nextState.results = finalResults;
+						});
+
+					};
+					reader.onabort = () => console.log('file reading was aborted');
+					reader.onerror = () => console.log('file reading has failed');
+					reader.readAsBinaryString(file);
+
 				}}>
-					test
+					Process!
+				</button>
+
+
+				<div>
+					{downloadLinksToRender}
+				</div>
+
+				<br/>
+				<button onClick={() => {
+					console.log(this.state);
+				}}>
+					Test
 				</button>
 
 			</div>
