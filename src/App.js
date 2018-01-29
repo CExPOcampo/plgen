@@ -11,6 +11,8 @@ import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Row, Col } from 
 
 import TargetColumn from './TargetColumn';
 
+import { FieldGroup } from './FieldGroup';
+
 var XLSX = require('xlsx');
 
 const plGenConfig = {
@@ -185,6 +187,9 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			tabNumber: 0,
+			rowRangeStart: 0,
+			rowRangeEnd: 0,
 			columns: []
 		};
 	}
@@ -227,21 +232,38 @@ class App extends Component {
 
 				<Form horizontal>
 
-					<FormGroup controlId="tabNumber">
-						<Col componentClass={ControlLabel} sm={2}>
-							Tab Number
-						</Col>
-						<Col sm={10}>
-							<FormControl type="number" placeholder="1"/>
-						</Col>
-					</FormGroup>
+					<FieldGroup label="Tab Number" type="number"
+						id="tabNumber"
+						value={this.state.tabNumber}
+						onChange={(e) => {
+							this.alterState((nextState) => {
+								nextState.tabNumber = e.target.value;
+							});
+						}}
+					/>
 
 					<FormGroup>
 						<Col componentClass={ControlLabel} sm={2}>
 							Row Range
 						</Col>
 						<Col sm={10}>
-							<FormControl type="number" style={inputRangeStyle} placeholder="1"/> - <FormControl type="number" style={inputRangeStyle}/>
+							<FormControl type="number" style={inputRangeStyle} placeholder="1"
+								value={this.state.rowRangeStart}
+								onChange={(e) => {
+									this.alterState((nextState) => {
+										nextState.rowRangeStart = e.target.value;
+									});
+								}}
+							/>
+							' - '
+							<FormControl type="number" style={inputRangeStyle}
+								value={this.state.rowRangeEnd}
+								onChange={(e) => {
+									this.alterState((nextState) => {
+										nextState.rowRangeEnd = e.target.value;
+									});
+								}}
+							/>
 						</Col>
 					</FormGroup>
 
@@ -295,6 +317,11 @@ class App extends Component {
 
 				<button onClick={() => {
 					console.log(this.state);
+
+					_.forEach(this.state.columns, (columnData, index) => {
+
+					});
+
 				}}>
 					test
 				</button>
