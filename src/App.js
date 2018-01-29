@@ -116,6 +116,8 @@ class App extends Component {
 				<div style={{paddingLeft: '5em'}}>
 
 					<h1><hr></hr></h1>
+					<h1>Config</h1>
+					<br/>
 					<Form horizontal>
 
 						<FieldGroup label="Tab Number" type="number"

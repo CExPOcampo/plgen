@@ -18,6 +18,7 @@ export default class RelatedData extends Component {
 			_.forEach(relateds, (related, index) => {
 				relatedDataToRender.push(
 					<div key={'relatedData' + index}>
+						<h4> {'Related Data ' + parentIndex + '_' + index} </h4>
 
 						<FieldGroup label="Related Data Name" placeholder="exampleRelatedName"
 							id={`relatedName${parentIndex}_${index}`}
