@@ -140,6 +140,9 @@ var inputRangeStyle = {
 	'minWidth': '50px'
 }
 
+//https://stackoverflow.com/questions/29537299/react-how-do-i-update-state-item1-on-setstate-with-jsfiddle
+// ^ correct answer by 'TranslucentCloud'
+
 class App extends Component {
 
 	alterState(stateModder) {

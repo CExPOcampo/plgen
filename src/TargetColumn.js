@@ -40,13 +40,13 @@ export default class TargetColumn extends Component {
 						/>
 
 
-
 						<RelatedDataForm
 							parentIndex={index}
 							relatedData={this.props.columns[index].relatedData}
 							addRelatedDataFuncGen={this.props.addRelatedDataFuncGen}
 							onChangeHandlerGen={this.props.onChangeHandlerGen}
 						/>
+
 
 						<br/>
 
