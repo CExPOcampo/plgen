@@ -8,7 +8,7 @@ export default class TargetColumn extends Component {
 
 	render() {
 
-		const columnData = [];
+		const columnDataToRender = [];
 		const props = this.props;
 		const columns = props.columns;
 		const num = columns.length;
@@ -17,7 +17,7 @@ export default class TargetColumn extends Component {
 			//https://stackoverflow.com/questions/35685290/context-and-variable-scope-in-es6-loops-and-foreach
 			// Use arrow function here to retain 'this' context (lexical scoping)
 			_.forEach(columns, (column, index) => {
-				columnData.push(
+				columnDataToRender.push(
 					<div key={'columnData' + index}>
 						<h2> {'Column ' + index} </h2>
 
@@ -40,9 +40,13 @@ export default class TargetColumn extends Component {
 						/>
 
 
-						{/*
-						<RelatedDataForm parentIndex={index}/>
-						*/}
+
+						<RelatedDataForm
+							parentIndex={index}
+							relatedData={this.props.columns[index].relatedData}
+							addRelatedDataFuncGen={this.props.addRelatedDataFuncGen}
+							onChangeHandlerGen={this.props.onChangeHandlerGen}
+						/>
 
 						<br/>
 
@@ -54,9 +58,13 @@ export default class TargetColumn extends Component {
 
 		return (
 			<div>
-				<h1> Column Data <button type="button" onClick={this.props.addColumnData}>+</button></h1>
+				<h1> Column Data
+					<button type="button" onClick={this.props.addColumnData}>
+						+
+					</button>
+				</h1>
 
-				{columnData}
+				{columnDataToRender}
 
 			</div>
 		);

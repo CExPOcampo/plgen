@@ -161,9 +161,22 @@ class App extends Component {
 			nextState['columns'].push({
 				column: '',
 				picklistName: '',
-				parentColumns: ''
+				parentColumns: '',
+				relatedData: []
 			});
 		});
+	}
+
+	addRelatedDataFuncGen(parentIndex) {
+		return (e) => {
+			this.alterState((nextState) => {
+				nextState['columns'][parentIndex]['relatedData'].push({
+					name: '',
+					relatedColumn: ''
+				});
+			});
+		}
+
 	}
 
 	constructor(props) {
@@ -238,6 +251,8 @@ class App extends Component {
 							addColumnData={this.addColumnData.bind(this)}
 							columns={this.state.columns}
 							onChangeHandlerGen={this.genValReplacer.bind(this)}
+
+							addRelatedDataFuncGen={this.addRelatedDataFuncGen.bind(this)}
 						/>
 					</div>
 
