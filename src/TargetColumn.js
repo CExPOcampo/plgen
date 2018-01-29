@@ -20,7 +20,7 @@ export default class TargetColumn extends Component {
 			_.forEach(columns, (column, index) => {
 				columnDataToRender.push(
 					<div key={'columnData' + index}>
-						<h2> {'Column ' + index} </h2>
+						<h3> {'Column Data ' + index} </h3>
 
 						<FieldGroup label="Column Letter" placeholder="A"
 							id={`column${index}`}
@@ -67,11 +67,11 @@ export default class TargetColumn extends Component {
 
 		return (
 			<div>
-				<h1> {'Column Data: '}
+				<h2> {'Column Data: '}
 					<Button bsStyle="success" type="button" onClick={this.props.addColumnData}>
 						{' + '}
 					</Button>
-				</h1>
+				</h2>
 
 				{columnDataToRender}
 
