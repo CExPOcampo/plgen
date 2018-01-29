@@ -94,10 +94,10 @@ class App extends Component {
 				</div>
 
 
-				<h1> ============================== </h1>
-				<h1><hr size="10"></hr></h1>
+
 				<div style={{paddingLeft: '5em'}}>
 
+					<h1><hr></hr></h1>
 					<Form horizontal>
 
 						<FieldGroup label="Tab Number" type="number"
@@ -148,8 +148,9 @@ class App extends Component {
 						</div>
 
 					</Form>
-
 					<br/>
+					<h1><hr></hr></h1>
+
 
 					<div>
 						<Dropzone
