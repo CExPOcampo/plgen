@@ -50,16 +50,34 @@ class App extends Component {
 		});
 	}
 
+	removeColumnDataFuncGen(targetIndex) {
+		return () => {
+			this.alterState((nextState) => {
+				_.remove(nextState['columns'], (value, index) => {
+					return index === targetIndex;
+				});
+			});
+		};
+	}
+
 	addRelatedDataFuncGen(parentIndex) {
-		return (e) => {
+		return () => {
 			this.alterState((nextState) => {
 				nextState['columns'][parentIndex]['relatedData'].push({
 					name: '',
 					relatedColumn: ''
 				});
 			});
-		}
-
+		};
+	}
+	removeRelatedDataFuncGen(parentIndex, targetIndex) {
+		return () => {
+			this.alterState((nextState) => {
+				_.remove(nextState['columns'][parentIndex]['relatedData'], (value, index) => {
+					return index === targetIndex;
+				});
+			});
+		};
 	}
 
 	constructor(props) {
@@ -140,10 +158,12 @@ class App extends Component {
 						<div>
 							<TargetColumn
 								addColumnData={this.addColumnData.bind(this)}
+								removeColumnDataFuncGen={this.removeColumnDataFuncGen.bind(this)}
 								columns={this.state.columns}
 								onChangeHandlerGen={this.genValReplacer.bind(this)}
 
 								addRelatedDataFuncGen={this.addRelatedDataFuncGen.bind(this)}
+								removeRelatedDataFuncGen={this.removeRelatedDataFuncGen.bind(this)}
 							/>
 						</div>
 

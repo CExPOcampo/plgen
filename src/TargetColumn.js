@@ -45,9 +45,17 @@ export default class TargetColumn extends Component {
 							parentIndex={index}
 							relatedData={this.props.columns[index].relatedData}
 							addRelatedDataFuncGen={this.props.addRelatedDataFuncGen}
+							removeRelatedDataFuncGen={this.props.removeRelatedDataFuncGen}
 							onChangeHandlerGen={this.props.onChangeHandlerGen}
 						/>
 
+						<h2>
+							<Button bsStyle="danger" bsSize="small" type="button"
+								onClick={this.props.removeColumnDataFuncGen(index)}
+							>
+								{' - '}
+							</Button>
+						</h2>
 
 						<br/>
 
@@ -60,7 +68,7 @@ export default class TargetColumn extends Component {
 		return (
 			<div>
 				<h1> {'Column Data: '}
-					<Button type="button" onClick={this.props.addColumnData}>
+					<Button bsStyle="success" type="button" onClick={this.props.addColumnData}>
 						{' + '}
 					</Button>
 				</h1>

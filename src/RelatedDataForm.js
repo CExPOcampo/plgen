@@ -31,6 +31,14 @@ export default class RelatedData extends Component {
 							onChange={props.onChangeHandlerGen(`columns[${parentIndex}].relatedData[${index}].relatedColumn`)}
 						/>
 
+						<h2>
+							<Button bsStyle="danger" bsSize="small" type="button"
+								onClick={this.props.removeRelatedDataFuncGen(parentIndex, index)}
+							>
+								{' - '}
+							</Button>
+						</h2>
+
 						<br/>
 					</div>
 				);
@@ -42,7 +50,7 @@ export default class RelatedData extends Component {
 			<div style={{paddingLeft: '5em'}}>
 
 				<h3> {'Related Data: '}
-					<Button type="button" onClick={this.props.addRelatedDataFuncGen(parentIndex)}>
+					<Button bsStyle="success" type="button" onClick={this.props.addRelatedDataFuncGen(parentIndex)}>
 						{' + '}
 					</Button>
 				</h3>
