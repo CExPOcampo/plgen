@@ -52,6 +52,41 @@ const plGenConfig = {
 	outputDir: './picklistGenerated/'
 };
 
+function generatePlGenConfig(appState) {
+	const plGenConfig = {
+		worksheetTabNum: parseInt(appState.tabNum, 10),
+		rowRange: [parseInt(appState.rowRangeStart, 10), parseInt(appState.rowRangeEnd, 10)],
+		targetColumns: {}
+	}
+
+	const targetColumnsRef = plGenConfig.targetColumns;
+	_.forEach(appState.columns, (columnData, index) => {
+
+		targetColumnsRef[columnData.column] = {
+			name: columnData.picklistName
+		};
+		// Parents
+		const targetColumnObj = targetColumnsRef[columnData.column];
+		if(columnData.parentColumns) {
+			targetColumnObj.parentColumns = columnData.parentColumns.split(',');
+		}
+		// Related Data
+		if(!_.isEmpty(columnData.relatedData)) {
+			targetColumnObj.relatedData = [];
+			const relatedDataArrayRef = targetColumnObj.relatedData;
+			_.forEach(columnData.relatedData, (related, index) => {
+				relatedDataArrayRef.push({
+					name: related.name,
+					relatedColumn: related.relatedColumn
+				});
+			});
+		}
+
+	});
+
+	return plGenConfig;
+}
+
 function processExcelFile(plGenConfig, binaryData) {
 	var readOpts = {
 		type: 'binary'
@@ -187,7 +222,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tabNumber: 0,
+			tabNum: 0,
 			rowRangeStart: 0,
 			rowRangeEnd: 0,
 			columns: []
@@ -233,11 +268,11 @@ class App extends Component {
 				<Form horizontal>
 
 					<FieldGroup label="Tab Number" type="number"
-						id="tabNumber"
-						value={this.state.tabNumber}
+						id="tabNum"
+						value={this.state.tabNum}
 						onChange={(e) => {
 							this.alterState((nextState) => {
-								nextState.tabNumber = e.target.value;
+								nextState.tabNum = e.target.value;
 							});
 						}}
 					/>
@@ -316,11 +351,9 @@ class App extends Component {
 				</DownloadLink>
 
 				<button onClick={() => {
-					console.log(this.state);
 
-					_.forEach(this.state.columns, (columnData, index) => {
-
-					});
+					const plGenConfig = generatePlGenConfig(this.state);
+					console.log(plGenConfig);
 
 				}}>
 					test
