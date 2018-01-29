@@ -7,6 +7,10 @@ import Dropzone from 'react-dropzone';
 
 import DownloadLink from "react-download-link";
 
+import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Row, Col } from 'react-bootstrap';
+
+import TargetColumn from './TargetColumn';
+
 var XLSX = require('xlsx');
 
 const plGenConfig = {
@@ -131,6 +135,11 @@ function processExcelFile(plGenConfig, binaryData) {
 
 var results;
 
+var inputRangeStyle = {
+	'width': '10%',
+	'minWidth': '50px'
+}
+
 class App extends Component {
 	render() {
 		return (
@@ -145,6 +154,59 @@ class App extends Component {
 					To get started, edit <code>src/App.js</code> and save to reload.
 				</p>
 				*/}
+
+
+				{/*
+				<div>
+					<form style={{position: 'absolute', left: '5%', width: '50%', background: 'red'}}>
+						TargetColumns:
+							<input type="text" name="columnLetter" style={{position: 'absolute', left: '0px'}}/>
+							<br/>
+							<input type="text" name="picklistName" style={{align: 'left'}}/>
+
+
+							<br/>
+							Comma Separated
+							<input type="text" name="parentColumns"/>
+
+							Multi
+							<input type="text" name="relatedDataColumn"/>
+							<input type="text" name="relatedDataName"/>
+					</form>
+				</div>
+				*/}
+
+
+				<Form horizontal>
+
+					<FormGroup controlId="tabNumber">
+						<Col componentClass={ControlLabel} sm={2}>
+							Tab Number
+						</Col>
+						<Col sm={10}>
+							<FormControl type="number" placeholder="1"/>
+						</Col>
+					</FormGroup>
+
+					<FormGroup>
+						<Col componentClass={ControlLabel} sm={2}>
+							Row Range
+						</Col>
+						<Col sm={10}>
+							<FormControl type="number" style={inputRangeStyle} placeholder="1"/> - <FormControl type="number" style={inputRangeStyle}/>
+						</Col>
+					</FormGroup>
+
+					<br/>
+					<br/>
+
+
+					<div>
+						<TargetColumn/>
+					</div>
+
+				</Form>
+
 
 				<Dropzone
 					onDrop={(acceptedFiles, rejectedFiles) => {
