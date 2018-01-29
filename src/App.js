@@ -141,6 +141,38 @@ var inputRangeStyle = {
 }
 
 class App extends Component {
+
+	alterState(stateModder) {
+		const nextState = _.cloneDeep(this.state);
+		stateModder(nextState);
+		this.setState(nextState);
+	}
+
+	genValReplacer(accessor) {
+		return (e) => {
+			this.alterState(function(nextState) {
+				_.set(nextState, accessor, e.target.value);
+			})
+		}
+	}
+
+	addColumnData() {
+		this.alterState((nextState) => {
+			nextState['columns'].push({
+				column: '',
+				picklistName: '',
+				parentColumns: ''
+			});
+		});
+	}
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			columns: []
+		};
+	}
+
 	render() {
 		return (
 			<div className="App">
@@ -202,7 +234,11 @@ class App extends Component {
 
 
 					<div>
-						<TargetColumn/>
+						<TargetColumn
+							addColumnData={this.addColumnData.bind(this)}
+							columns={this.state.columns}
+							onChangeHandlerGen={this.genValReplacer.bind(this)}
+						/>
 					</div>
 
 				</Form>
@@ -238,6 +274,12 @@ class App extends Component {
 				>
 						Save to disk
 				</DownloadLink>
+
+				<button onClick={() => {
+					console.log(this.state);
+				}}>
+					test
+				</button>
 
 			</div>
 		);
