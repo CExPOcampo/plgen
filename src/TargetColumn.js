@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FieldGroup } from './FieldGroup';
 
+import { Button } from 'react-bootstrap';
 import RelatedDataForm from './RelatedDataForm';
 import * as _ from 'lodash';
 
@@ -59,9 +60,9 @@ export default class TargetColumn extends Component {
 		return (
 			<div>
 				<h1> Column Data
-					<button type="button" onClick={this.props.addColumnData}>
+					<Button type="button" onClick={this.props.addColumnData}>
 						+
-					</button>
+					</Button>
 				</h1>
 
 				{columnDataToRender}

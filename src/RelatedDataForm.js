@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FieldGroup } from './FieldGroup';
+import { Button } from 'react-bootstrap';
 
 import * as _ from 'lodash';
 
@@ -38,12 +39,12 @@ export default class RelatedData extends Component {
 		}
 
 		return (
-			<div style={{paddingLeft: '10em'}}>
+			<div style={{paddingLeft: '5em'}}>
 				{/*<h3> Related Data <button type="button" onClick={this.addRelatedData.bind(this)}>+</button></h3>*/}
 				<h3> Related Data
-					<button type="button" onClick={this.props.addRelatedDataFuncGen(parentIndex)}>
+					<Button type="button" onClick={this.props.addRelatedDataFuncGen(parentIndex)}>
 						+
-					</button>
+					</Button>
 				</h3>
 
 				{relatedDataToRender}
