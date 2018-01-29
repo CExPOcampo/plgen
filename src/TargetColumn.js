@@ -59,9 +59,9 @@ export default class TargetColumn extends Component {
 
 		return (
 			<div>
-				<h1> Column Data
+				<h1> {'Column Data: '}
 					<Button type="button" onClick={this.props.addColumnData}>
-						+
+						{' + '}
 					</Button>
 				</h1>
 

@@ -40,10 +40,10 @@ export default class RelatedData extends Component {
 
 		return (
 			<div style={{paddingLeft: '5em'}}>
-				{/*<h3> Related Data <button type="button" onClick={this.addRelatedData.bind(this)}>+</button></h3>*/}
-				<h3> Related Data
+
+				<h3> {'Related Data: '}
 					<Button type="button" onClick={this.props.addRelatedDataFuncGen(parentIndex)}>
-						+
+						{' + '}
 					</Button>
 				</h3>
 
