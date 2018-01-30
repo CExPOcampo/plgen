@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 var XLSX = require('xlsx');
 
 export function generatePlGenConfig(appState) {
+
 	const plGenConfig = {
 		worksheetTabNum: parseInt(appState.tabNum, 10),
 		rowRange: [parseInt(appState.rowRangeStart, 10), parseInt(appState.rowRangeEnd, 10)],
