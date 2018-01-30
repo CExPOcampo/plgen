@@ -194,6 +194,12 @@ class App extends Component {
 						</Dropzone>
 					</div>
 
+					<ul>
+						{
+							this.state.filePrevRef ? (<li>{this.state.filePrevRef.name} - {this.state.filePrevRef.size} bytes</li>) : (<li></li>)
+						}
+					</ul>
+
 					<br/>
 
 					<div>
