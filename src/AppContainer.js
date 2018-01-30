@@ -8,11 +8,14 @@ import { FieldGroup } from './FieldGroup';
 
 import TargetColumn from './TargetColumn';
 import DownloadLinksPanel from './DownloadLinksPanel';
-
-import Dropzone from 'react-dropzone';
+import FileUploadForm from './FileUploadForm';
 
 import { generatePlGenConfig, processExcelFile } from './picklistTools';
 
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux';
+import * as columnActionCreators from './actions/columnActions';
+import * as excelDataActionCreators from './actions/excelDataActions';
 
 var inputRangeStyle = {
 	'display': 'inline',
@@ -23,7 +26,7 @@ var inputRangeStyle = {
 //https://stackoverflow.com/questions/29537299/react-how-do-i-update-state-item1-on-setstate-with-jsfiddle
 // ^ correct answer by 'TranslucentCloud'
 
-class App extends Component {
+class AppContainer extends Component {
 
 	alterState(stateModder) {
 		const nextState = _.cloneDeep(this.state);
@@ -31,79 +34,28 @@ class App extends Component {
 		this.setState(nextState);
 	}
 
-	genValReplacer(accessor) {
-		return (e) => {
-			this.alterState(function(nextState) {
-				_.set(nextState, accessor, e.target.value);
-			})
-		}
-	}
-
-	addColumnData() {
-		this.alterState((nextState) => {
-			nextState['columns'].push({
-				column: '',
-				picklistName: '',
-				parentColumns: '',
-				relatedData: []
-			});
-		});
-	}
-
-	removeColumnDataFuncGen(targetIndex) {
-		return () => {
-			this.alterState((nextState) => {
-				_.remove(nextState['columns'], (value, index) => {
-					return index === targetIndex;
-				});
-			});
-		};
-	}
-
-	addRelatedDataFuncGen(parentIndex) {
-		return () => {
-			this.alterState((nextState) => {
-				nextState['columns'][parentIndex]['relatedData'].push({
-					name: '',
-					relatedColumn: ''
-				});
-			});
-		};
-	}
-	removeRelatedDataFuncGen(parentIndex, targetIndex) {
-		return () => {
-			this.alterState((nextState) => {
-				_.remove(nextState['columns'][parentIndex]['relatedData'], (value, index) => {
-					return index === targetIndex;
-				});
-			});
-		};
-	}
-
 	constructor(props) {
 		super(props);
 		this.state = {
-			results: null,
-			filePrevRef: null,
-			tabNum: 0,
-			rowRangeStart: 0,
-			rowRangeEnd: 0,
-			columns: []
+			results: null
+			// Moved to redux store
+			// filePrevRef: null,
+			// tabNum: 0,
+			// rowRangeStart: 0,
+			// rowRangeEnd: 0,
+			// columns: []
 		};
 
 		// Do function bindings here (not when passing as props)
 		// https://stackoverflow.com/questions/38349421/react-dropzone-image-preview-not-showing
 		// https://maarten.mulders.tk/blog/2017/07/no-bind-or-arrow-in-jsx-props-why-how.html
 		// https://stackoverflow.com/questions/40773220/jsx-props-should-not-use-bind
-		this.genValReplacer = this.genValReplacer.bind(this);
-		this.addColumnData = this.addColumnData.bind(this);
-		this.removeColumnDataFuncGen = this.removeColumnDataFuncGen.bind(this);
-		this.addRelatedDataFuncGen = this.addRelatedDataFuncGen.bind(this);
-		this.removeRelatedDataFuncGen = this.removeRelatedDataFuncGen.bind(this);
 
 	}
 
 	render() {
+
+		const props = this.props;
 
 		return (
 			<div className="App">
@@ -133,12 +85,8 @@ class App extends Component {
 
 						<FieldGroup label="Tab Number" type="number"
 							id="tabNum"
-							value={this.state.tabNum}
-							onChange={(e) => {
-								this.alterState((nextState) => {
-									nextState.tabNum = e.target.value;
-								});
-							}}
+							value={props.excelData.tabNum}
+							onChange={(e) => props.setTabNum(e.target.value)}
 						/>
 
 						<FormGroup>
@@ -148,68 +96,42 @@ class App extends Component {
 							<Col xs={6} md={6} sm={6}>
 								<FormControl type="number" style={inputRangeStyle} placeholder="1"
 									value={this.state.rowRangeStart}
-									onChange={(e) => {
-										this.alterState((nextState) => {
-											nextState.rowRangeStart = e.target.value;
-										});
-									}}
+									onChange={(e) => props.setRowRangeStart(e.target.value)}
 								/>
 								{' - '}
 								<FormControl type="number" style={inputRangeStyle}
 									value={this.state.rowRangeEnd}
-									onChange={(e) => {
-										this.alterState((nextState) => {
-											nextState.rowRangeEnd = e.target.value;
-										});
-									}}
+									onChange={(e) => props.setRowRangeEnd(e.target.value)}
 								/>
 							</Col>
 						</FormGroup>
 
 						<br/>
 
-						<div>
-							<TargetColumn
-								addColumnData={this.addColumnData}
-								removeColumnDataFuncGen={this.removeColumnDataFuncGen}
-								columns={this.state.columns}
-								onChangeHandlerGen={this.genValReplacer}
+						<TargetColumn
+							addColumn={props.addColumn}
+							removeColumn={props.removeColumn}
+							columns={props.columns}
+							setLetter={props.setLetter}
+							setPicklistName={props.setPicklistName}
+							setParentLetters={props.setParentLetters}
 
-								addRelatedDataFuncGen={this.addRelatedDataFuncGen}
-								removeRelatedDataFuncGen={this.removeRelatedDataFuncGen}
-							/>
-						</div>
+							addRelatedData={props.addRelatedData}
+							removeRelatedData={props.removeRelatedData}
+							setRelatedDataName={props.setRelatedDataName}
+							setRelatedDataLetter={props.setRelatedDataLetter}
+						/>
+
 
 					</Form>
 					<br/>
 					<h1><hr></hr></h1>
 
 
-					<div>
-						<Dropzone
-							multiple={false}
-							onDrop={(acceptedFiles, rejectedFiles) => {
-								console.log(JSON.stringify(acceptedFiles[0], null, 2));
-								console.log(JSON.stringify(rejectedFiles[0], null, 2));
-
-								if(acceptedFiles && acceptedFiles[0]) {
-									var file = acceptedFiles[0];
-									this.alterState((nextState) => {
-										nextState.filePrevRef = file;
-									});
-								}
-
-							}}
-						>
-							<p> Drop excel files HERE! </p>
-						</Dropzone>
-					</div>
-
-					<ul>
-						{
-							this.state.filePrevRef ? (<li>{this.state.filePrevRef.name} - {this.state.filePrevRef.size} bytes</li>) : (<li></li>)
-						}
-					</ul>
+					<FileUploadForm
+						filePreviewRef={props.excelData.filePrevRef}
+						setFilePreviewRef={props.setFilePreviewRef}
+					/>
 
 					<br/>
 
@@ -217,9 +139,9 @@ class App extends Component {
 						<Button bsStyle="primary" bsSize="large"
 							onClick={() => {
 
-								const plGenConfig = generatePlGenConfig(this.state);
+								const plGenConfig = generatePlGenConfig(Object.assign({}, props.excelData, {columns: props.columns}));
 
-								const file = this.state.filePrevRef;
+								const file = props.excelData.filePrevRef;
 
 								const reader = new FileReader();
 								reader.onload = () => {
@@ -256,4 +178,22 @@ class App extends Component {
 	}
 }
 
-export default App;
+function mapStateToProps(state){
+	return {
+		excelData: state.excelData,
+		columns: state.columns
+	}
+}
+
+function mapDispatchToProps(dispatch){
+	// Bind 'dispatch' to multiple action creators
+	// https://github.com/reactjs/redux/issues/363
+	return bindActionCreators(
+		Object.assign({}, excelDataActionCreators, columnActionCreators),
+		dispatch
+	);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+
+//export default App;

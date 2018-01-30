@@ -24,34 +24,36 @@ export default class TargetColumn extends Component {
 
 						<FieldGroup label="Column Letter" placeholder="A"
 							id={`column${index}`}
-							value={columns[index].column}
-							onChange={props.onChangeHandlerGen(`columns[${index}].column`)}
+							value={column.column}
+							onChange={(e) => props.setLetter(index, e.target.value)}
 						/>
 
 						<FieldGroup label="Picklist Name" placeholder="exampleName"
 							id={`picklistName${index}`}
-							value={columns[index].picklistName}
-							onChange={props.onChangeHandlerGen(`columns[${index}].picklistName`)}
+							value={column.picklistName}
+							onChange={(e) => props.setPicklistName(index, e.target.value)}
 						/>
 
 						<FieldGroup label="Parent Column Letters" placeholder="A,B"
 							id={`parentColumns${index}`}
-							value={columns[index].parentColumns}
-							onChange={props.onChangeHandlerGen(`columns[${index}].parentColumns`)}
+							value={column.parentColumns}
+							onChange={(e) => props.setParentLetters(index, e.target.value)}
 						/>
 
 
 						<RelatedDataForm
 							parentIndex={index}
-							relatedData={this.props.columns[index].relatedData}
-							addRelatedDataFuncGen={this.props.addRelatedDataFuncGen}
-							removeRelatedDataFuncGen={this.props.removeRelatedDataFuncGen}
-							onChangeHandlerGen={this.props.onChangeHandlerGen}
+							relatedData={column.relatedData}
+							addRelatedData={props.addRelatedData}
+							removeRelatedData={props.removeRelatedData}
+
+							setRelatedDataName={props.setRelatedDataName}
+							setRelatedDataLetter={props.setRelatedDataLetter}
 						/>
 
 						<h2>
 							<Button bsStyle="danger" bsSize="small" type="button"
-								onClick={this.props.removeColumnDataFuncGen(index)}
+								onClick={() => props.removeColumn(index)}
 							>
 								{' - '}
 							</Button>
@@ -68,7 +70,7 @@ export default class TargetColumn extends Component {
 		return (
 			<div>
 				<h2> {'Column Data: '}
-					<Button bsStyle="success" type="button" onClick={this.props.addColumnData}>
+					<Button bsStyle="success" type="button" onClick={props.addColumn}>
 						{' + '}
 					</Button>
 				</h2>
