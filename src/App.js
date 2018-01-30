@@ -90,6 +90,17 @@ class App extends Component {
 			rowRangeEnd: 0,
 			columns: []
 		};
+
+		// Do function bindings here (not when passing as props)
+		// https://stackoverflow.com/questions/38349421/react-dropzone-image-preview-not-showing
+		// https://maarten.mulders.tk/blog/2017/07/no-bind-or-arrow-in-jsx-props-why-how.html
+		// https://stackoverflow.com/questions/40773220/jsx-props-should-not-use-bind
+		this.genValReplacer = this.genValReplacer.bind(this);
+		this.addColumnData = this.addColumnData.bind(this);
+		this.removeColumnDataFuncGen = this.removeColumnDataFuncGen.bind(this);
+		this.addRelatedDataFuncGen = this.addRelatedDataFuncGen.bind(this);
+		this.removeRelatedDataFuncGen = this.removeRelatedDataFuncGen.bind(this);
+
 	}
 
 	render() {
@@ -159,13 +170,13 @@ class App extends Component {
 
 						<div>
 							<TargetColumn
-								addColumnData={this.addColumnData.bind(this)}
-								removeColumnDataFuncGen={this.removeColumnDataFuncGen.bind(this)}
+								addColumnData={this.addColumnData}
+								removeColumnDataFuncGen={this.removeColumnDataFuncGen}
 								columns={this.state.columns}
-								onChangeHandlerGen={this.genValReplacer.bind(this)}
+								onChangeHandlerGen={this.genValReplacer}
 
-								addRelatedDataFuncGen={this.addRelatedDataFuncGen.bind(this)}
-								removeRelatedDataFuncGen={this.removeRelatedDataFuncGen.bind(this)}
+								addRelatedDataFuncGen={this.addRelatedDataFuncGen}
+								removeRelatedDataFuncGen={this.removeRelatedDataFuncGen}
 							/>
 						</div>
 
@@ -193,6 +204,12 @@ class App extends Component {
 							<p> Drop excel files HERE! </p>
 						</Dropzone>
 					</div>
+
+					<ul>
+						{
+							this.state.filePrevRef ? (<li>{this.state.filePrevRef.name} - {this.state.filePrevRef.size} bytes</li>) : (<li></li>)
+						}
+					</ul>
 
 					<br/>
 
