@@ -23,18 +23,18 @@ export default class RelatedData extends Component {
 						<FieldGroup label="Related Data Name" placeholder="exampleRelatedName"
 							id={`relatedName${parentIndex}_${index}`}
 							value={relateds[index].name}
-							onChange={props.onChangeHandlerGen(`columns[${parentIndex}].relatedData[${index}].name`)}
+							onChange={(e) => props.setRelatedDataName(parentIndex, index, e.target.value)}
 						/>
 
 						<FieldGroup label="Related Data Column Letter" placeholder="A"
 							id={`relatedColumn${parentIndex}_${index}`}
 							value={relateds[index].relatedColumn}
-							onChange={props.onChangeHandlerGen(`columns[${parentIndex}].relatedData[${index}].relatedColumn`)}
+							onChange={(e) => props.setRelatedDataLetter(parentIndex, index, e.target.value)}
 						/>
 
 						<h2>
 							<Button bsStyle="danger" bsSize="small" type="button"
-								onClick={this.props.removeRelatedDataFuncGen(parentIndex, index)}
+								onClick={() => props.removeRelatedData(parentIndex, index)}
 							>
 								{' - '}
 							</Button>
@@ -51,7 +51,7 @@ export default class RelatedData extends Component {
 			<div style={{paddingLeft: '5em'}}>
 
 				<h3> {'Related Data: '}
-					<Button bsStyle="success" type="button" onClick={this.props.addRelatedDataFuncGen(parentIndex)}>
+					<Button bsStyle="success" type="button" onClick={() => props.addRelatedData(parentIndex)}>
 						{' + '}
 					</Button>
 				</h3>

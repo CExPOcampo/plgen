@@ -10,7 +10,9 @@
     "react-dom": "^16.2.0",
     "react-download-link": "^2.1.0",
     "react-dropzone": "^4.2.7",
+    "react-redux": "^5.0.6",
     "react-scripts": "1.1.0",
+    "redux": "^3.7.2",
     "xlsx": "^0.11.18"
   },
   "scripts": {
