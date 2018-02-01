@@ -4,11 +4,11 @@ import './App.css';
 import * as _ from 'lodash';
 
 import { Button, Form, FormGroup, FormControl, ControlLabel, HelpBlock, Row, Col } from 'react-bootstrap';
-import { FieldGroup } from './FieldGroup';
+import { FieldGroup } from './components/FieldGroup';
 
-import TargetColumn from './TargetColumn';
-import DownloadLinksPanel from './DownloadLinksPanel';
-import FileUploadForm from './FileUploadForm';
+import TargetColumn from './components/TargetColumn';
+import DownloadLinksPanel from './components/DownloadLinksPanel';
+import FileUploadForm from './components/FileUploadForm';
 
 import { generatePlGenConfig, processExcelFile } from './picklistTools';
 
