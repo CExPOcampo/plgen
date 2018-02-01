@@ -9,7 +9,7 @@ export function FieldGroup({ id, label, help, validationState, ...props }) {
 				<Col xs={3} md={3} sm={3}>
 					<ControlLabel>{label}:</ControlLabel>
 				</Col>
-				<Col xs={6} md={6} sm={6}>
+				<Col xs={5} md={5} sm={5}>
 					<FormControl {...props} />
 				</Col>
 			</FormGroup>
