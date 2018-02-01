@@ -2,10 +2,10 @@ import React from 'react';
 import { FormGroup, Col, ControlLabel, FormControl } from 'react-bootstrap';
 
 
-export function FieldGroup({ id, label, help, ...props }) {
+export function FieldGroup({ id, label, help, validationState, ...props }) {
 	return (
 		<div>
-			<FormGroup controlId={id}>
+			<FormGroup controlId={id} validationState= {validationState}>
 				<Col xs={3} md={3} sm={3}>
 					<ControlLabel>{label}:</ControlLabel>
 				</Col>

@@ -34,6 +34,16 @@ class AppContainer extends Component {
 		this.setState(nextState);
 	}
 
+	numStringIsGrtrOrEql(numString, limit) {
+		if(numString) {
+			const num = parseInt(numString, 10);
+			if(!isNaN(num)) {
+				return num >= limit;
+			}
+		}
+		return false;
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -44,6 +54,9 @@ class AppContainer extends Component {
 			// rowRangeStart: 0,
 			// rowRangeEnd: 0,
 			// columns: []
+			, tabNumIsValid: true,
+			rowRangeStartIsValid: false,
+			rowRangeEndIsValid: false
 		};
 
 		// Do function bindings here (not when passing as props)
@@ -83,25 +96,37 @@ class AppContainer extends Component {
 					<br/>
 					<Form horizontal>
 
-						<FieldGroup label="Tab Number" type="number"
+						<FieldGroup label="Tab Number" type="number" min={0}
 							id="tabNum"
 							value={props.excelData.tabNum}
-							onChange={(e) => props.setTabNum(e.target.value)}
+							validationState={(this.state.tabNumIsValid) ? null : 'error'}
+							onChange={(e) => {
+								this.alterState((nextState) => nextState.tabNumIsValid = this.numStringIsGrtrOrEql(e.target.value, 0));
+								props.setTabNum(e.target.value);
+							}}
 						/>
 
-						<FormGroup>
+						<FormGroup validationState={
+							(this.state.rowRangeStartIsValid && this.state.rowRangeEndIsValid) ? null : 'error'
+						}>
 							<Col componentClass={ControlLabel} xs={3} md={3} sm={3}>
 								Row Range
 							</Col>
 							<Col xs={6} md={6} sm={6}>
-								<FormControl type="number" style={inputRangeStyle} placeholder="1"
+								<FormControl type="number" min={2} style={inputRangeStyle}
 									value={this.state.rowRangeStart}
-									onChange={(e) => props.setRowRangeStart(e.target.value)}
+									onChange={(e) => {
+										this.alterState((nextState) => nextState.rowRangeStartIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
+										props.setRowRangeStart(e.target.value);
+									}}
 								/>
 								{' - '}
-								<FormControl type="number" style={inputRangeStyle}
+								<FormControl type="number" min={2} style={inputRangeStyle}
 									value={this.state.rowRangeEnd}
-									onChange={(e) => props.setRowRangeEnd(e.target.value)}
+									onChange={(e) => {
+										this.alterState((nextState) => nextState.rowRangeEndIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
+										props.setRowRangeEnd(e.target.value);
+									}}
 								/>
 							</Col>
 						</FormGroup>
