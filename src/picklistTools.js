@@ -18,7 +18,7 @@ export function generatePlGenConfig(appState) {
 		// Parents
 		const targetColumnObj = targetColumnsRef[columnData.column];
 		if(columnData.parentColumns) {
-			targetColumnObj.parentColumns = columnData.parentColumns.split(',');
+			targetColumnObj.parentColumns = _.without(columnData.parentColumns.split(','), '');
 		}
 		// Related Data
 		if(!_.isEmpty(columnData.relatedData)) {
