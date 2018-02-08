@@ -4,7 +4,7 @@ export const INITIAL_STATE = {
 	column: '',
 	picklistName: '',
 	parentColumns: '',
-	relatedData: []
+	relatedDataKeys: []
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -25,6 +25,12 @@ export default function(state = INITIAL_STATE, action) {
 			_.set(nextState, 'parentColumns', action.parentColumns);
 			return nextState;
 
+		case 'columnData/ADD_RELATED_DATA_KEY':
+			nextState.relatedDataKeys.push(action.targetKey);
+			return nextState;
+		case 'columnData/REMOVE_RELATED_DATA_KEY':
+			_.remove(nextState.relatedDataKeys, (elem) => elem === action.targetKey);
+			return nextState;
 
 		default:
 			break;

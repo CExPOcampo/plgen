@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { FieldGroup } from './FieldGroup';
 
-import RelatedDataForm from './RelatedDataForm';
-
-export default class TargetColumnData extends Component {
+export default class ColumnData extends Component {
 
 	render() {
-
 
 		const props = this.props;
 
@@ -38,19 +35,6 @@ export default class TargetColumnData extends Component {
 					value={columnData.parentColumns}
 					onChange={(e) => props.setColumnDataParentLetters(e.target.value)}
 				/>
-
-
-				{/*
-				<RelatedDataForm
-					parentIndex={index}
-					relatedData={column.relatedData}
-					addRelatedData={props.addRelatedData}
-					removeRelatedData={props.removeRelatedData}
-
-					setRelatedDataName={props.setRelatedDataName}
-					setRelatedDataLetter={props.setRelatedDataLetter}
-				/>
-				*/}
 
 			</div>
 		);

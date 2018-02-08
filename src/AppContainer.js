@@ -16,10 +16,7 @@ import {bindActionCreators} from 'redux';
 
 import * as excelDataActionCreators from './actions/excelDataActions';
 
-import TargetColumnDataList from './components/TargetColumnDataList';
-
-import RelatedDataList from './components/RelatedDataList';
-import * as relatedDataListActionCreators from './actions/relatedDataListActions';
+import ColumnDataList from './components/ColumnDataList';
 
 var inputRangeStyle = {
 	'display': 'inline',
@@ -76,10 +73,6 @@ class AppContainer extends Component {
 
 		return (
 			<div className="App">
-
-				<RelatedDataList
-					relatedDataList={props.relatedDataList}
-				/>
 
 				<header className="App-header">
 					{/*<img src={logo} className="App-logo" alt="logo" />*/}
@@ -140,7 +133,7 @@ class AppContainer extends Component {
 
 						<br/>
 
-						<TargetColumnDataList/>
+						<ColumnDataList/>
 
 
 					</Form>
@@ -201,8 +194,7 @@ class AppContainer extends Component {
 function mapStateToProps(state){
 	return {
 		excelData: state.excelData,
-		columnDataList: state.columnDataList,
-		relatedDataList: state.relatedDataList
+		columnDataList: state.columnDataList
 	}
 }
 
@@ -211,8 +203,7 @@ function mapDispatchToProps(dispatch){
 	// https://github.com/reactjs/redux/issues/363
 	return bindActionCreators(
 		Object.assign({},
-			excelDataActionCreators,
-			relatedDataListActionCreators
+			excelDataActionCreators
 		),
 		dispatch
 	);

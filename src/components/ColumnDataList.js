@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 
-import { Button } from 'react-bootstrap';
+import AddButton from './AddButton';
+import RemoveButton from './RemoveButton';
 
 import * as columnDataListActionCreators from '../actions/columnDataListActions';
 
-import TargetColumnData from './TargetColumnData';
+import ColumnData from './ColumnData';
 import * as columnDataActionCreators from '../actions/columnDataActions';
 import bindIndexToActionCreators from '../actions/bindIndexToActionCreators';
 
+import RelatedDataSet from './RelatedDataSet';
 
 var wrappedColumnDataActionCreators =
 	index =>
@@ -19,7 +21,7 @@ var wrappedColumnDataActionCreators =
 				dispatch
 			);
 
-class TargetColumnDataList extends Component {
+class ColumnDataList extends Component {
 
 	render() {
 
@@ -31,26 +33,27 @@ class TargetColumnDataList extends Component {
 
 		return (
 			<div>
-				<h2> {'Column Data: '}
-					<Button bsStyle="success" type="button" onClick={props.addColumnData}>
-						{' + '}
-					</Button>
-				</h2>
+
+				<AddButton headerLabel={'Column Data: '} clickHandler={props.addColumnData}/>
 
 				{columnDataList.map((columnData, index) => {
 					return (<div key={'columnData' + index}>
-						<TargetColumnData
+						<ColumnData
 							index={index}
 							columnData={columnData}
 							{...wrappedColumnDataActionCreators(index)(props.dispatch)}
 						/>
-						<h2>
-							<Button bsStyle="danger" bsSize="small" type="button"
-								onClick={() => props.removeColumnData(index)}
-							>
-								{' - '}
-							</Button>
-						</h2>
+
+						<RemoveButton clickHandler={() => props.removeColumnData(index)}/>
+
+						<div style={{paddingLeft: '5em'}}>
+							<RelatedDataSet
+								parentIndex={index}
+								relatedDataKeyList={columnData.relatedDataKeys}
+								{...wrappedColumnDataActionCreators(index)(props.dispatch)}
+							/>
+						</div>
+
 					</div>);
 				})}
 
@@ -79,4 +82,4 @@ function mapDispatchToProps(dispatch){
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TargetColumnDataList);
+export default connect(mapStateToProps, mapDispatchToProps)(ColumnDataList);

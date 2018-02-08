@@ -17,3 +17,17 @@ export const setColumnDataParentLetters = (parentColumns) => {
 		parentColumns
 	};
 }
+
+export const addRelatedDataKey = (targetKey) => {
+	return {
+		type: 'columnData/ADD_RELATED_DATA_KEY',
+		targetKey
+	}
+}
+
+export const removeRelatedDataKey = (targetKey) => {
+	return {
+		type: 'columnData/REMOVE_RELATED_DATA_KEY',
+		targetKey
+	}
+}
