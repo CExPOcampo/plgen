@@ -89,9 +89,9 @@ class AppContainer extends Component {
 				</div>
 
 
+				<h1><hr></hr></h1>
 				<div style={{paddingLeft: '5em'}}>
 
-					<h1><hr></hr></h1>
 					<h1>Config</h1>
 					<br/>
 					<Form horizontal>
@@ -138,9 +138,10 @@ class AppContainer extends Component {
 
 					</Form>
 					<br/>
-					<h1><hr></hr></h1>
+				</div>
+				<h1><hr></hr></h1>
 
-
+				<div style={{paddingLeft: '5em'}}>
 					<FileUploadForm
 						filePreviewRef={props.excelData.filePrevRef}
 						setFilePreviewRef={props.setFilePreviewRef}
