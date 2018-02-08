@@ -6,7 +6,6 @@ import * as _ from 'lodash';
 import { Button, Form, FormGroup, FormControl, ControlLabel, HelpBlock, Row, Col } from 'react-bootstrap';
 import { FieldGroup } from './components/FieldGroup';
 
-import TargetColumn from './components/TargetColumn';
 import DownloadLinksPanel from './components/DownloadLinksPanel';
 import FileUploadForm from './components/FileUploadForm';
 
@@ -14,8 +13,13 @@ import { generatePlGenConfig, processExcelFile } from './picklistTools';
 
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import * as columnActionCreators from './actions/columnActions';
+
 import * as excelDataActionCreators from './actions/excelDataActions';
+
+import TargetColumnDataList from './components/TargetColumnDataList';
+
+import RelatedDataList from './components/RelatedDataList';
+import * as relatedDataListActionCreators from './actions/relatedDataListActions';
 
 var inputRangeStyle = {
 	'display': 'inline',
@@ -73,6 +77,10 @@ class AppContainer extends Component {
 		return (
 			<div className="App">
 
+				<RelatedDataList
+					relatedDataList={props.relatedDataList}
+				/>
+
 				<header className="App-header">
 					{/*<img src={logo} className="App-logo" alt="logo" />*/}
 					<h1 className="App-title">Excel Picklist Generator</h1>
@@ -86,7 +94,6 @@ class AppContainer extends Component {
 						<li>Save generated files from download links</li>
 					</ol>
 				</div>
-
 
 
 				<div style={{paddingLeft: '5em'}}>
@@ -133,19 +140,7 @@ class AppContainer extends Component {
 
 						<br/>
 
-						<TargetColumn
-							addColumn={props.addColumn}
-							removeColumn={props.removeColumn}
-							columns={props.columns}
-							setLetter={props.setLetter}
-							setPicklistName={props.setPicklistName}
-							setParentLetters={props.setParentLetters}
-
-							addRelatedData={props.addRelatedData}
-							removeRelatedData={props.removeRelatedData}
-							setRelatedDataName={props.setRelatedDataName}
-							setRelatedDataLetter={props.setRelatedDataLetter}
-						/>
+						<TargetColumnDataList/>
 
 
 					</Form>
@@ -206,7 +201,8 @@ class AppContainer extends Component {
 function mapStateToProps(state){
 	return {
 		excelData: state.excelData,
-		columns: state.columns
+		columnDataList: state.columnDataList,
+		relatedDataList: state.relatedDataList
 	}
 }
 
@@ -214,7 +210,10 @@ function mapDispatchToProps(dispatch){
 	// Bind 'dispatch' to multiple action creators
 	// https://github.com/reactjs/redux/issues/363
 	return bindActionCreators(
-		Object.assign({}, excelDataActionCreators, columnActionCreators),
+		Object.assign({},
+			excelDataActionCreators,
+			relatedDataListActionCreators
+		),
 		dispatch
 	);
 }

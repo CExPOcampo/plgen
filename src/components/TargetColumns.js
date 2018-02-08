@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import RelatedDataForm from './RelatedDataForm';
 import * as _ from 'lodash';
 
-export default class TargetColumn extends Component {
+export default class TargetColumns extends Component {
 
 	render() {
 

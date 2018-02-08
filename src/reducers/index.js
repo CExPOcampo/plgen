@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux';
 
 import ExcelDataReducer from './excelDataReducer';
-import ColumnReducer from './columnReducer';
-import { reducer as formReducer } from 'redux-form';
+import ColumnDataListReducer from './columnDataListReducer';
+
+import RelatedDataListReducer from './relatedDataListReducer';
 
 const allReducers = combineReducers({
 	excelData: ExcelDataReducer,
-	columns: ColumnReducer,
-	form: formReducer
+	columnDataList: ColumnDataListReducer,
+	relatedDataList: RelatedDataListReducer
 });
 
 export default allReducers;
