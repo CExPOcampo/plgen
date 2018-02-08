@@ -159,8 +159,6 @@ class AppContainer extends Component {
 									})
 								);
 
-								console.log(plGenConfig);
-
 								const file = props.excelData.filePrevRef;
 
 								const reader = new FileReader();
