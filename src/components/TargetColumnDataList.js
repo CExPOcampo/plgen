@@ -65,6 +65,8 @@ function mapStateToProps(state){
 	}
 }
 
+// expose dispatch function to props
+//https://github.com/reactjs/react-redux/issues/255
 function mapDispatchToProps(dispatch){
 	// Bind 'dispatch' to multiple action creators
 	// https://github.com/reactjs/redux/issues/363
