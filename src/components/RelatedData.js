@@ -11,7 +11,7 @@ export default class RelatedData extends Component {
 
 		return (
 			<div>
-				<h4> {'Related Data ' + targetKey} </h4>
+				<h4> {'Related Data ' + targetKey.substring(0, 3)} </h4>
 
 				<FieldGroup label="Related Data Name" placeholder="exampleRelatedName"
 					id={`relatedName${targetKey}`}

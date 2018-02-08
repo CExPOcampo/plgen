@@ -94,7 +94,7 @@ class AppContainer extends Component {
 
 					<h1>Config</h1>
 					<br/>
-					<Form horizontal>
+					<Form>
 
 						<FieldGroup label="Tab Number" type="number" min={0}
 							id="tabNum"
@@ -109,26 +109,28 @@ class AppContainer extends Component {
 						<FormGroup validationState={
 							(this.state.rowRangeStartIsValid && this.state.rowRangeEndIsValid) ? null : 'error'
 						}>
-							<Col componentClass={ControlLabel} xs={3} md={3} sm={3}>
-								Row Range
-							</Col>
-							<Col xs={6} md={6} sm={6}>
-								<FormControl type="number" min={2} style={inputRangeStyle}
-									value={this.state.rowRangeStart}
-									onChange={(e) => {
-										this.alterState((nextState) => nextState.rowRangeStartIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
-										props.setRowRangeStart(e.target.value);
-									}}
-								/>
-								{' - '}
-								<FormControl type="number" min={2} style={inputRangeStyle}
-									value={this.state.rowRangeEnd}
-									onChange={(e) => {
-										this.alterState((nextState) => nextState.rowRangeEndIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
-										props.setRowRangeEnd(e.target.value);
-									}}
-								/>
-							</Col>
+							<Row>
+								<Col componentClass={ControlLabel} xs={3} md={3} sm={3}>
+									Row Range
+								</Col>
+								<Col xs={6} md={6} sm={6}>
+									<FormControl type="number" min={2} style={inputRangeStyle}
+										value={this.state.rowRangeStart}
+										onChange={(e) => {
+											this.alterState((nextState) => nextState.rowRangeStartIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
+											props.setRowRangeStart(e.target.value);
+										}}
+									/>
+									{' - '}
+									<FormControl type="number" min={2} style={inputRangeStyle}
+										value={this.state.rowRangeEnd}
+										onChange={(e) => {
+											this.alterState((nextState) => nextState.rowRangeEndIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
+											props.setRowRangeEnd(e.target.value);
+										}}
+									/>
+								</Col>
+							</Row>
 						</FormGroup>
 
 						<br/>
