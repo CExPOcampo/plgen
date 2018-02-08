@@ -26,7 +26,6 @@ class RelatedDataList extends Component {
 	render() {
 
 		const props = this.props;
-		const parentIndex = props.parentIndex;
 		const relatedDataKeyList = props.relatedDataKeyList;
 		const relatedDataSet = props.relatedDataSet;
 
