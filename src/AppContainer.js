@@ -194,7 +194,8 @@ class AppContainer extends Component {
 function mapStateToProps(state){
 	return {
 		excelData: state.excelData,
-		columnDataList: state.columnDataList
+		columnDataList: state.columnDataList,
+		relatedDataSet: state.relatedDataSet
 	}
 }
 

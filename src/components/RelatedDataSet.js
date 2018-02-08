@@ -11,6 +11,7 @@ import RelatedData from './RelatedData';
 import * as relatedDataActionCreators from '../actions/relatedDataActions';
 import bindIndexToActionCreators from '../actions/bindIndexToActionCreators';
 
+import uuidv4 from 'uuid/v4'
 
 var wrappedRelatedDataActionCreators =
 	targetKey =>
@@ -37,8 +38,7 @@ class RelatedDataList extends Component {
 
 				<AddButton headerLabel={'Related Data: '}
 					clickHandler={() => {
-						// !!! this way of key generation will have collisions when a key is deleted and a new one is added
-						const targetKey = parentIndex + '' + relatedDataKeyList.length;
+						const targetKey = uuidv4();
 						props.addRelatedData(targetKey);
 						props.addRelatedDataKey(targetKey);
 					}}
