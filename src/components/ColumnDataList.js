@@ -38,6 +38,7 @@ class ColumnDataList extends Component {
 
 				{columnDataList.map((columnData, index) => {
 					return (<div key={'columnData' + index}>
+						<h2><hr className="subBreaker"/></h2>
 						<ColumnData
 							index={index}
 							columnData={columnData}

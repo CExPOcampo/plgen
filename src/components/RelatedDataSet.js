@@ -45,6 +45,9 @@ class RelatedDataList extends Component {
 
 				{relatedDataKeyList.map((relatedDataKey) => {
 					return (<div key={'relatedData_' + relatedDataKey}>
+
+						<h3><hr className="subSubBreaker"/></h3>
+
 						<RelatedData
 							targetKey={relatedDataKey}
 							relatedData={relatedDataSet[relatedDataKey]}

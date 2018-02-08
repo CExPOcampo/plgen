@@ -89,7 +89,7 @@ class AppContainer extends Component {
 				</div>
 
 
-				<h1><hr></hr></h1>
+				<h1><hr className="mainBreaker"/></h1>
 				<div style={{paddingLeft: '5em'}}>
 
 					<h1>Config</h1>
@@ -141,7 +141,7 @@ class AppContainer extends Component {
 					</Form>
 					<br/>
 				</div>
-				<h1><hr></hr></h1>
+				<h1><hr className="mainBreaker"/></h1>
 
 				<div style={{paddingLeft: '5em'}}>
 					<FileUploadForm

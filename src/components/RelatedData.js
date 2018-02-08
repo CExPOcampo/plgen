@@ -13,19 +13,17 @@ export default class RelatedData extends Component {
 			<div>
 				<h4> {'Related Data ' + targetKey.substring(0, 3)} </h4>
 
-				<FieldGroup label="Related Data Name" placeholder="exampleRelatedName"
-					id={`relatedName${targetKey}`}
-					value={relatedData.name}
-					onChange={(e) => props.setRelatedDataName(e.target.value)}
-				/>
-
 				<FieldGroup label="Related Data Column Letter" placeholder="A"
 					id={`relatedColumn${targetKey}`}
 					value={relatedData.relatedColumn}
 					onChange={(e) => props.setRelatedDataLetter(e.target.value)}
 				/>
 
-				<br/>
+				<FieldGroup label="Related Data Name" placeholder="exampleRelatedName"
+					id={`relatedName${targetKey}`}
+					value={relatedData.name}
+					onChange={(e) => props.setRelatedDataName(e.target.value)}
+				/>
 
 			</div>
 		);
