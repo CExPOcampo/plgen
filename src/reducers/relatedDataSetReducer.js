@@ -8,7 +8,7 @@ export default function(state = INITIAL_STATE, action) {
 	const nextState = _.cloneDeep(state);
 
 	if(action.type.startsWith('relatedData/')) {
-		nextState[action.index] = relatedDataReducer(nextState[action.targetKey], action);
+		nextState[action.index] = relatedDataReducer(nextState[action.index], action);
 		return nextState;
 	}
 

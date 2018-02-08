@@ -14,10 +14,10 @@ import bindIndexToActionCreators from '../actions/bindIndexToActionCreators';
 import uuidv4 from 'uuid/v4'
 
 var wrappedRelatedDataActionCreators =
-	targetKey =>
+	index =>
 		dispatch =>
 			bindActionCreators(
-				bindIndexToActionCreators(relatedDataActionCreators, targetKey),
+				bindIndexToActionCreators(relatedDataActionCreators, index),
 				dispatch
 			);
 

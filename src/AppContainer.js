@@ -152,7 +152,14 @@ class AppContainer extends Component {
 						<Button bsStyle="primary" bsSize="large"
 							onClick={() => {
 
-								const plGenConfig = generatePlGenConfig(Object.assign({}, props.excelData, {columns: props.columns}));
+								const plGenConfig = generatePlGenConfig(
+									Object.assign({}, props.excelData, {
+										columnDataList: props.columnDataList,
+										relatedDataSet: props.relatedDataSet
+									})
+								);
+
+								console.log(plGenConfig);
 
 								const file = props.excelData.filePrevRef;
 
