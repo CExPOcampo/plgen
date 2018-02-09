@@ -9,8 +9,10 @@ export function generatePlGenConfig(appState) {
 		targetColumns: {}
 	}
 
+	const relatedDataSet = appState.relatedDataSet;
+
 	const targetColumnsRef = plGenConfig.targetColumns;
-	_.forEach(appState.columns, (columnData, index) => {
+	_.forEach(appState.columnDataList, (columnData, index) => {
 
 		targetColumnsRef[columnData.column] = {
 			name: columnData.picklistName
@@ -21,13 +23,14 @@ export function generatePlGenConfig(appState) {
 			targetColumnObj.parentColumns = _.without(columnData.parentColumns.split(','), '');
 		}
 		// Related Data
-		if(!_.isEmpty(columnData.relatedData)) {
+		if(!_.isEmpty(columnData.relatedDataKeys)) {
 			targetColumnObj.relatedData = [];
 			const relatedDataArrayRef = targetColumnObj.relatedData;
-			_.forEach(columnData.relatedData, (related, index) => {
+			_.forEach(columnData.relatedDataKeys, (relatedDataKey) => {
+				const targetRelatedData = relatedDataSet[relatedDataKey];
 				relatedDataArrayRef.push({
-					name: related.name,
-					relatedColumn: related.relatedColumn
+					name: targetRelatedData.name,
+					relatedColumn: targetRelatedData.relatedColumn
 				});
 			});
 		}
