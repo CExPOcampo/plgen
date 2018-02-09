@@ -22,8 +22,8 @@ export default function asCollapsiblePanel(WrappedComponent) {
 
 							<h3>
 								{this.state.open ?
-									<Button type="button" className="glyphicon glyphicon-chevron-down"/> :
-									<Button type="button" className="glyphicon glyphicon-chevron-right"/>
+									<Button type="button"><span className="glyphicon glyphicon-chevron-down"/></Button> :
+									<Button type="button"><span className="glyphicon glyphicon-chevron-right"/></Button>
 								}
 								{` ${title}${titleName}`}
 							</h3>

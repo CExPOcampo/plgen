@@ -11,9 +11,10 @@ export default class RemoveButton extends Component {
 			<h2>
 				<Button
 					bsStyle="danger" bsSize="small" type="button"
-					className="glyphicon glyphicon-minus-sign"
 					onClick={props.clickHandler}
-				/>
+				>
+					<span className="glyphicon glyphicon-minus-sign"/>
+				</Button>
 			</h2>
 		);
 	}

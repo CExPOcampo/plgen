@@ -12,8 +12,9 @@ export default class AddButton extends Component {
 				<Button
 					bsStyle="success" type="button"
 					onClick={props.clickHandler}
-					className="glyphicon glyphicon-plus-sign"
-				/>
+				>
+					<span className="glyphicon glyphicon-plus-sign"/>
+				</Button>
 			</h2>
 		);
 	}
