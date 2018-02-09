@@ -9,11 +9,11 @@ export default class RemoveButton extends Component {
 
 		return (
 			<h2>
-				<Button bsStyle="danger" bsSize="small" type="button"
+				<Button
+					bsStyle="danger" bsSize="small" type="button"
+					className="glyphicon glyphicon-minus-sign"
 					onClick={props.clickHandler}
-				>
-					{' - '}
-				</Button>
+				/>
 			</h2>
 		);
 	}

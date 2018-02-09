@@ -9,9 +9,11 @@ export default class AddButton extends Component {
 
 		return (
 			<h2> {`${props.headerLabel}`}
-				<Button bsStyle="success" type="button" onClick={props.clickHandler}>
-					{' + '}
-				</Button>
+				<Button
+					bsStyle="success" type="button"
+					onClick={props.clickHandler}
+					className="glyphicon glyphicon-plus-sign"
+				/>
 			</h2>
 		);
 	}

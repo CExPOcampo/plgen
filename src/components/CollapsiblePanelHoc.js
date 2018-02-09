@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 
 export default function asCollapsiblePanel(WrappedComponent) {
 	return class extends Component {
@@ -22,8 +22,8 @@ export default function asCollapsiblePanel(WrappedComponent) {
 
 							<h3>
 								{this.state.open ?
-									<span className="glyphicon glyphicon-chevron-down"/> :
-									<span className="glyphicon glyphicon-chevron-right"/>
+									<Button type="button" className="glyphicon glyphicon-chevron-down"/> :
+									<Button type="button" className="glyphicon glyphicon-chevron-right"/>
 								}
 								{` ${title}${titleName}`}
 							</h3>
