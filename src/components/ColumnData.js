@@ -16,8 +16,6 @@ export default class ColumnData extends Component {
 		return (
 			<div>
 
-				<h3> {'Column Data ' + index} </h3>
-
 				<FieldGroup label="Column Letter" placeholder="A"
 					id={`column${index}`}
 					value={columnData.column}

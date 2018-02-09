@@ -18,6 +18,7 @@ import * as excelDataActionCreators from './actions/excelDataActions';
 
 import ColumnDataList from './components/ColumnDataList';
 
+
 var inputRangeStyle = {
 	'display': 'inline',
 	'width': '10%',

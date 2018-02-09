@@ -11,7 +11,7 @@ export default class DownloadLinksPanel extends Component {
 			downloadLinksToRender.push(
 				<div key={'download' + keyName}>
 					<DownloadLink
-						filename={`${keyName}}.json`}
+						filename={`${keyName}.json`}
 						exportFile={() => JSON.stringify(result, null, 2)}
 					>
 						{`Save ${keyName}.json to disk`}
