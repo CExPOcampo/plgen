@@ -46,7 +46,7 @@ class ColumnDataList extends Component {
 
 						<CollapsibleColumnAndRelatedData
 							namespace="columnDataPanel"
-							title="Column Data: "
+							title={`Column ${columnData.column}: `}
 							titleName={columnData.picklistName}
 
 							index={index}
@@ -74,7 +74,7 @@ class ColumnDataList extends Component {
 function mapStateToProps(state){
 	return {
 		columnDataList: state.columnDataList
-	}
+	};
 }
 
 // expose dispatch function to props

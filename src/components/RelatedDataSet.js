@@ -53,7 +53,6 @@ class RelatedDataList extends Component {
 
 						<h3><hr className="subSubBreaker"/></h3>
 
-						{/*<RelatedData*/}
 						<CollapsibleRelatedData
 							namespace="relatedDataPanel"
 							title="Related Data: "
@@ -85,7 +84,7 @@ class RelatedDataList extends Component {
 function mapStateToProps(state){
 	return {
 		relatedDataSet: state.relatedDataSet
-	}
+	};
 }
 
 function mapDispatchToProps(dispatch){
