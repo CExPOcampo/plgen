@@ -22,9 +22,19 @@
   font-size: medium;
 }
 
-hr {
+hr.mainBreaker {
   border-color: #000000;
   border-width: 5px 0;
+}
+
+hr.subBreaker {
+  border-color: #00d8ff;
+  border-width: 3px 0;
+}
+
+hr.subSubBreaker {
+  border-color: #00d8ff;
+  border-width: 1px 0;
 }
 
 @keyframes App-logo-spin {

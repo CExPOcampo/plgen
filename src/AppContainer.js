@@ -6,7 +6,6 @@ import * as _ from 'lodash';
 import { Button, Form, FormGroup, FormControl, ControlLabel, HelpBlock, Row, Col } from 'react-bootstrap';
 import { FieldGroup } from './components/FieldGroup';
 
-import TargetColumn from './components/TargetColumn';
 import DownloadLinksPanel from './components/DownloadLinksPanel';
 import FileUploadForm from './components/FileUploadForm';
 
@@ -14,8 +13,11 @@ import { generatePlGenConfig, processExcelFile } from './picklistTools';
 
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import * as columnActionCreators from './actions/columnActions';
+
 import * as excelDataActionCreators from './actions/excelDataActions';
+
+import ColumnDataList from './components/ColumnDataList';
+
 
 var inputRangeStyle = {
 	'display': 'inline',
@@ -88,13 +90,12 @@ class AppContainer extends Component {
 				</div>
 
 
-
+				<h1><hr className="mainBreaker"/></h1>
 				<div style={{paddingLeft: '5em'}}>
 
-					<h1><hr></hr></h1>
 					<h1>Config</h1>
 					<br/>
-					<Form horizontal>
+					<Form>
 
 						<FieldGroup label="Tab Number" type="number" min={0}
 							id="tabNum"
@@ -109,50 +110,41 @@ class AppContainer extends Component {
 						<FormGroup validationState={
 							(this.state.rowRangeStartIsValid && this.state.rowRangeEndIsValid) ? null : 'error'
 						}>
-							<Col componentClass={ControlLabel} xs={3} md={3} sm={3}>
-								Row Range
-							</Col>
-							<Col xs={6} md={6} sm={6}>
-								<FormControl type="number" min={2} style={inputRangeStyle}
-									value={this.state.rowRangeStart}
-									onChange={(e) => {
-										this.alterState((nextState) => nextState.rowRangeStartIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
-										props.setRowRangeStart(e.target.value);
-									}}
-								/>
-								{' - '}
-								<FormControl type="number" min={2} style={inputRangeStyle}
-									value={this.state.rowRangeEnd}
-									onChange={(e) => {
-										this.alterState((nextState) => nextState.rowRangeEndIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
-										props.setRowRangeEnd(e.target.value);
-									}}
-								/>
-							</Col>
+							<Row>
+								<Col componentClass={ControlLabel} xs={3} md={3} sm={3}>
+									Row Range
+								</Col>
+								<Col xs={6} md={6} sm={6}>
+									<FormControl type="number" min={2} style={inputRangeStyle}
+										value={this.state.rowRangeStart}
+										onChange={(e) => {
+											this.alterState((nextState) => nextState.rowRangeStartIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
+											props.setRowRangeStart(e.target.value);
+										}}
+									/>
+									{' - '}
+									<FormControl type="number" min={2} style={inputRangeStyle}
+										value={this.state.rowRangeEnd}
+										onChange={(e) => {
+											this.alterState((nextState) => nextState.rowRangeEndIsValid = this.numStringIsGrtrOrEql(e.target.value, 2));
+											props.setRowRangeEnd(e.target.value);
+										}}
+									/>
+								</Col>
+							</Row>
 						</FormGroup>
 
 						<br/>
 
-						<TargetColumn
-							addColumn={props.addColumn}
-							removeColumn={props.removeColumn}
-							columns={props.columns}
-							setLetter={props.setLetter}
-							setPicklistName={props.setPicklistName}
-							setParentLetters={props.setParentLetters}
-
-							addRelatedData={props.addRelatedData}
-							removeRelatedData={props.removeRelatedData}
-							setRelatedDataName={props.setRelatedDataName}
-							setRelatedDataLetter={props.setRelatedDataLetter}
-						/>
+						<ColumnDataList/>
 
 
 					</Form>
 					<br/>
-					<h1><hr></hr></h1>
+				</div>
+				<h1><hr className="mainBreaker"/></h1>
 
-
+				<div style={{paddingLeft: '5em'}}>
 					<FileUploadForm
 						filePreviewRef={props.excelData.filePrevRef}
 						setFilePreviewRef={props.setFilePreviewRef}
@@ -164,7 +156,12 @@ class AppContainer extends Component {
 						<Button bsStyle="primary" bsSize="large"
 							onClick={() => {
 
-								const plGenConfig = generatePlGenConfig(Object.assign({}, props.excelData, {columns: props.columns}));
+								const plGenConfig = generatePlGenConfig(
+									Object.assign({}, props.excelData, {
+										columnDataList: props.columnDataList,
+										relatedDataSet: props.relatedDataSet
+									})
+								);
 
 								const file = props.excelData.filePrevRef;
 
@@ -185,7 +182,9 @@ class AppContainer extends Component {
 
 							}}
 						>
-							Process!
+							{` Process `}
+							<span className="glyphicon glyphicon-sunglasses"/>
+
 						</Button>
 					</div>
 
@@ -206,7 +205,8 @@ class AppContainer extends Component {
 function mapStateToProps(state){
 	return {
 		excelData: state.excelData,
-		columns: state.columns
+		columnDataList: state.columnDataList,
+		relatedDataSet: state.relatedDataSet
 	}
 }
 
@@ -214,7 +214,9 @@ function mapDispatchToProps(dispatch){
 	// Bind 'dispatch' to multiple action creators
 	// https://github.com/reactjs/redux/issues/363
 	return bindActionCreators(
-		Object.assign({}, excelDataActionCreators, columnActionCreators),
+		Object.assign({},
+			excelDataActionCreators
+		),
 		dispatch
 	);
 }
