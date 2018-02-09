@@ -182,7 +182,9 @@ class AppContainer extends Component {
 
 							}}
 						>
-							Process!
+							{` Process `}
+							<span className="glyphicon glyphicon-sunglasses"/>
+
 						</Button>
 					</div>
 

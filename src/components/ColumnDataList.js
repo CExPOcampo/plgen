@@ -42,7 +42,7 @@ class ColumnDataList extends Component {
 
 				{columnDataList.map((columnData, index) => {
 					return (<div key={'columnData' + index}>
-						<h2><hr className="subBreaker"/></h2>
+						{/*<h2><hr className="subBreaker"/></h2>*/}
 
 						<CollapsibleColumnAndRelatedData
 							namespace="columnDataPanel"

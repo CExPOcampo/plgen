@@ -51,7 +51,7 @@ class RelatedDataList extends Component {
 				{relatedDataKeyList.map((relatedDataKey) => {
 					return (<div key={'relatedData_' + relatedDataKey}>
 
-						<h3><hr className="subSubBreaker"/></h3>
+						{/*<h3><hr className="subSubBreaker"/></h3>*/}
 
 						<CollapsibleRelatedData
 							namespace="relatedDataPanel"
