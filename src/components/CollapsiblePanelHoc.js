@@ -16,7 +16,10 @@ export default function asCollapsiblePanel(WrappedComponent) {
 			const {namespace, title, titleName, ...passThroughProps} = props;
 
 			return (<div>
-				<Panel id={`${namespace}-${props.index}`} expanded={this.state.open} onToggle={() => this.setState({open: !this.state.open})}>
+				<Panel id={`${namespace}-${props.index}`}
+					style={{'marginRight': '5em'}}
+					expanded={this.state.open}
+					onToggle={() => this.setState({open: !this.state.open})}>
 					<Panel.Heading>
 						<Panel.Title toggle>
 
