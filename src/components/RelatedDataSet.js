@@ -41,7 +41,9 @@ class RelatedDataList extends Component {
 				<AddButton headerLabel={'Related Data: '}
 					clickHandler={() => {
 						const targetKey = uuidv4();
+						// Add related data to relatedDataSet
 						props.addRelatedData(targetKey);
+						// Add related data key to parent columnData
 						props.addRelatedDataKey(targetKey);
 					}}
 				/>
@@ -64,7 +66,9 @@ class RelatedDataList extends Component {
 
 						<RemoveButton
 							clickHandler={() => {
+								// Remove related data from relatedDataSet
 								props.removeRelatedData(relatedDataKey);
+								// Remove related data key from parent columnData
 								props.removeRelatedDataKey(relatedDataKey);
 							}
 						}/>

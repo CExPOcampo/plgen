@@ -6,6 +6,7 @@ import AddButton from './AddButton';
 import RemoveButton from './RemoveButton';
 
 import * as columnDataListActionCreators from '../actions/columnDataListActions';
+import * as relatedDataSetActionCreators from '../actions/relatedDataSetActions';
 
 import * as columnDataActionCreators from '../actions/columnDataActions';
 import bindIndexToActionCreators from '../actions/bindIndexToActionCreators';
@@ -53,8 +54,14 @@ class ColumnDataList extends Component {
 							{...wrappedColumnDataActionCreators(index)(props.dispatch)}
 						/>
 
-						{/*TODO: Should remove related data as well*/}
-						<RemoveButton clickHandler={() => props.removeColumnData(index)}/>
+						<RemoveButton clickHandler={() => {
+							// Remove related datas from relatedDataSet
+							columnData.relatedDataKeys.forEach((relatedDataKey) => {
+								props.removeRelatedData(relatedDataKey);
+							});
+							// Remove column data
+							props.removeColumnData(index);
+						}}/>
 
 					</div>);
 				})}
@@ -78,7 +85,10 @@ function mapDispatchToProps(dispatch){
 	return {
 		dispatch,
 		...bindActionCreators(
-			Object.assign({}, columnDataListActionCreators),
+			Object.assign({},
+				columnDataListActionCreators,
+				relatedDataSetActionCreators
+			),
 			dispatch
 		)
 	};

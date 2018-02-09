@@ -18,8 +18,7 @@ export default function(state = INITIAL_STATE, action) {
 			return nextState;
 
 		case 'REMOVE_RELATED_DATA':
-			_.omit(nextState, [action.targetKey]);
-			return nextState;
+			return _.omit(nextState, [action.targetKey]);
 
 		default:
 			break;
