@@ -2,7 +2,8 @@ import React from 'react';
 import { FormGroup, Row, Col, ControlLabel, FormControl } from 'react-bootstrap';
 
 
-export function FieldGroup({ id, label, help, validationState, ...props }) {
+export function FieldGroup({ id, label, help, validationState, fieldSize, ...props }) {
+	const fieldSizeToUse = fieldSize ? fieldSize : 4;
 	return (
 		<div>
 			<FormGroup controlId={id} validationState= {validationState}>
@@ -10,7 +11,7 @@ export function FieldGroup({ id, label, help, validationState, ...props }) {
 					<Col xs={3} md={3} sm={3} lg={3}>
 						<ControlLabel>{label}:</ControlLabel>
 					</Col>
-					<Col xs={5} md={5} sm={5} lg={5}>
+					<Col xs={fieldSizeToUse} md={fieldSizeToUse} sm={fieldSizeToUse} lg={fieldSizeToUse}>
 						<FormControl {...props} />
 					</Col>
 				</Row>
