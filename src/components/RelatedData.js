@@ -18,7 +18,7 @@ export default class RelatedData extends Component {
 					onChange={(e) => props.setRelatedDataLetter(e.target.value)}
 				/>
 
-				<FieldGroup label="Related Data Name" placeholder="exampleRelatedName"
+				<FieldGroup label="Related Data Name" placeholder="exampleName"
 					id={`relatedName${targetKey}`}
 					value={relatedData.name}
 					onChange={(e) => props.setRelatedDataName(e.target.value)}
