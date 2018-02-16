@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import * as _ from 'lodash';
 
-import { Button, Form, FormGroup, FormControl, ControlLabel, HelpBlock, Row, Col } from 'react-bootstrap';
+import { Button, Form, FormGroup, FormControl, ControlLabel, Row, Col } from 'react-bootstrap';
 import { FieldGroup } from './components/FieldGroup';
 
 import DownloadLinksPanel from './components/DownloadLinksPanel';
@@ -97,7 +97,7 @@ class AppContainer extends Component {
 					<br/>
 					<Form>
 
-						<FieldGroup label="Tab Number" type="number" min={0}
+						<FieldGroup label="Tab Number" type="number" min={0} fieldSize={2}
 							id="tabNum"
 							value={props.excelData.tabNum}
 							validationState={(this.state.tabNumIsValid) ? null : 'error'}
