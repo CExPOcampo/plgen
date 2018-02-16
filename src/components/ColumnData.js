@@ -28,11 +28,25 @@ export default class ColumnData extends Component {
 					onChange={(e) => props.setColumnDataPicklistName(e.target.value)}
 				/>
 
-				<FieldGroup label="Parent Column Letters" placeholder="A,B"
-					id={`parentColumns${index}`}
-					value={columnData.parentColumns}
-					onChange={(e) => props.setColumnDataParentLetters(e.target.value)}
-				/>
+				{columnData.hasParent ?
+					<FieldGroup label="Parent Column Letters" placeholder="A,B"
+						id={`parentColumns${index}`}
+						value={columnData.parentColumns}
+						onChange={(e) => props.setColumnDataParentLetters(e.target.value)}
+					/>
+					:
+					null
+				}
+
+				{columnData.hasRank ?
+					<FieldGroup label="Rank Column Letter" placeholder="A"
+						id={`rank${index}`}
+						value={columnData.rank}
+						onChange={(e) => props.setColumnDataRank(e.target.value)}
+					/>
+					:
+					null
+				}
 
 			</div>
 		);
