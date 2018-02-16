@@ -40,7 +40,7 @@ export default class TargetColumn extends Component {
 					</div>
 
 					<div style={{display: 'inline-block', marginLeft: '5em'}}>
-						<img src={exampleImage}/>
+						<img src={exampleImage} alt="excelExample"/>
 					</div>
 
 				</div>
