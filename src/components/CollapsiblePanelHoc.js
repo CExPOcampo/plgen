@@ -32,6 +32,7 @@ export default function asCollapsiblePanel(WrappedComponent) {
 							</h3>
 
 						</Panel.Title>
+
 					</Panel.Heading>
 					<Panel.Collapse>
 						<Panel.Body>

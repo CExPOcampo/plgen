@@ -17,13 +17,14 @@ export function generatePlGenConfig(appState) {
 		targetColumnsRef[columnData.column] = {
 			name: columnData.picklistName
 		};
-		// Parents
 		const targetColumnObj = targetColumnsRef[columnData.column];
-		if(columnData.parentColumns) {
+
+		// Parents
+		if(columnData.hasParents && columnData.parentColumns) {
 			targetColumnObj.parentColumns = _.without(columnData.parentColumns.split(','), '');
 		}
 		// Related Data
-		if(!_.isEmpty(columnData.relatedDataKeys)) {
+		if(columnData.hasRelatedData && !_.isEmpty(columnData.relatedDataKeys)) {
 			targetColumnObj.relatedData = [];
 			const relatedDataArrayRef = targetColumnObj.relatedData;
 			_.forEach(columnData.relatedDataKeys, (relatedDataKey) => {
@@ -33,6 +34,10 @@ export function generatePlGenConfig(appState) {
 					relatedColumn: targetRelatedData.relatedColumn
 				});
 			});
+		}
+		// Rank
+		if(columnData.hasRank && columnData.rank) {
+			targetColumnObj.rank = columnData.rank;
 		}
 
 	});
@@ -73,7 +78,10 @@ export function processExcelFile(plGenConfig, binaryData) {
 		if(!_.isEmpty(data.parentColumns)) {
 			_.forEach(data.parentColumns, function(parentColumn) {
 				var parentAccessor = parentColumn + r;
-				parentChain.push(getCellValue(worksheet, parentAccessor));
+				var parentValue = getCellValue(worksheet, parentAccessor);
+				if(parentValue) {
+					parentChain.push(parentValue);
+				}
 			});
 		}
 
@@ -99,13 +107,28 @@ export function processExcelFile(plGenConfig, binaryData) {
 				});
 				finalObj.relatedData = _.clone(relatedDataObj, true);
 			}
+			// Add rank if exists
+			if(data.rank) {
+				var rankAccessor = data.rank + r;
+				var rankValue = getCellValue(worksheet, rankAccessor);
+				var rankValueInt = parseInt(rankValue, 10);
+				if(!isNaN(rankValueInt)) {
+					finalObj.rank = rankValueInt;
+				}
+			}
 			// Add object to results
 			results[currentPicklistName].push(finalObj);
 		}
 	}
 
 	function getCellValue(worksheet, accessor) {
-		return worksheet[accessor].w.trim();
+		var cellData = worksheet[accessor];
+		if(cellData) {
+			return cellData.w.trim();
+		}
+		else {
+			return undefined;
+		}
 	}
 
 	function findDuplicateValAndParents(resultsArray, val, valParents) {
