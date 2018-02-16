@@ -39,7 +39,7 @@ export default class ColumnData extends Component {
 				}
 
 				{columnData.hasRank ?
-					<FieldGroup label="Rank" type="number" min={0}
+					<FieldGroup label="Rank Column Letter" placeholder="A"
 						id={`rank${index}`}
 						value={columnData.rank}
 						onChange={(e) => props.setColumnDataRank(e.target.value)}

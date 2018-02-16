@@ -13,7 +13,7 @@ export default class TargetColumn extends Component {
 			<div style={{paddingTop: '2em'}}>
 
 				<div>
-					<div style={{display: 'inline-block', float: 'left'}}>
+					<div style={{display: 'inline-block', float: 'left', marginRight: '5em'}}>
 						<Dropzone
 							multiple={false}
 							onDrop={(acceptedFiles, rejectedFiles) => {
@@ -39,7 +39,7 @@ export default class TargetColumn extends Component {
 
 					</div>
 
-					<div style={{display: 'inline-block', marginLeft: '5em'}}>
+					<div style={{display: 'inline-block'}}>
 						<img src={exampleImage} alt="excelExample"/>
 					</div>
 
