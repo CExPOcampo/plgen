@@ -78,7 +78,10 @@ export function processExcelFile(plGenConfig, binaryData) {
 		if(!_.isEmpty(data.parentColumns)) {
 			_.forEach(data.parentColumns, function(parentColumn) {
 				var parentAccessor = parentColumn + r;
-				parentChain.push(getCellValue(worksheet, parentAccessor));
+				var parentValue = getCellValue(worksheet, parentAccessor);
+				if(parentValue) {
+					parentChain.push(parentValue);
+				}
 			});
 		}
 
@@ -119,7 +122,13 @@ export function processExcelFile(plGenConfig, binaryData) {
 	}
 
 	function getCellValue(worksheet, accessor) {
-		return worksheet[accessor].w.trim();
+		var cellData = worksheet[accessor];
+		if(cellData) {
+			return cellData.w.trim();
+		}
+		else {
+			return undefined;
+		}
 	}
 
 	function findDuplicateValAndParents(resultsArray, val, valParents) {
