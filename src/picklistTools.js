@@ -20,7 +20,7 @@ export function generatePlGenConfig(appState) {
 		const targetColumnObj = targetColumnsRef[columnData.column];
 
 		// Parents
-		if(columnData.hasParents && columnData.parentColumns) {
+		if(columnData.hasParent && columnData.parentColumns) {
 			targetColumnObj.parentColumns = _.without(columnData.parentColumns.split(','), '');
 		}
 		// Related Data
@@ -124,7 +124,8 @@ export function processExcelFile(plGenConfig, binaryData) {
 	function getCellValue(worksheet, accessor) {
 		var cellData = worksheet[accessor];
 		if(cellData) {
-			return cellData.w.trim();
+			var cellDataString = cellData.w || cellData.v;
+			return cellDataString.trim();
 		}
 		else {
 			return undefined;
