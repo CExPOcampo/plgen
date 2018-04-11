@@ -11,11 +11,9 @@ import * as relatedDataSetActionCreators from '../actions/relatedDataSetActions'
 import * as columnDataActionCreators from '../actions/columnDataActions';
 import bindIndexToActionCreators from '../actions/bindIndexToActionCreators';
 
-
-import asCollapsiblePanel from './CollapsiblePanelHoc';
-
+import CollapsiblePanel from './CollapsiblePanel';
 import ColumnAndRelatedData from './ColumnAndRelatedData'
-const CollapsibleColumnAndRelatedData = asCollapsiblePanel(ColumnAndRelatedData);
+
 
 var wrappedColumnDataActionCreators =
 	index =>
@@ -44,14 +42,18 @@ class ColumnDataList extends Component {
 					return (<div key={'columnData' + index}>
 						{/*<h2><hr className="subBreaker"/></h2>*/}
 
-						<CollapsibleColumnAndRelatedData
+						<CollapsiblePanel
 							namespace="columnDataPanel"
 							title={`Column ${columnData.column}: `}
 							titleName={columnData.picklistName}
 
-							index={index}
-							columnData={columnData}
-							{...wrappedColumnDataActionCreators(index)(props.dispatch)}
+							render={() => {
+								return <ColumnAndRelatedData
+									index={index}
+									columnData={columnData}
+									{...wrappedColumnDataActionCreators(index)(props.dispatch)}
+								/>
+							}}
 						/>
 
 						<RemoveButton clickHandler={() => {

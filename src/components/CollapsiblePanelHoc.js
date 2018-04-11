@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Panel } from 'react-bootstrap';
 
+// Collapsible Panel Higher Order Component
+// Wraps a component in a Collapsible Panel (includes toggleable close/open state)
 export default function asCollapsiblePanel(WrappedComponent) {
 	return class extends Component {
 		constructor(props) {
