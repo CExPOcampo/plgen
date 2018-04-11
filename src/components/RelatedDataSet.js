@@ -24,7 +24,7 @@ var wrappedRelatedDataActionCreators =
 				dispatch
 			);
 
-class RelatedDataList extends Component {
+class RelatedDataSet extends Component {
 
 	render() {
 
@@ -99,5 +99,5 @@ function mapDispatchToProps(dispatch){
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RelatedDataList);
+export default connect(mapStateToProps, mapDispatchToProps)(RelatedDataSet);
 
