@@ -7,14 +7,12 @@ import RemoveButton from './RemoveButton';
 
 import * as relatedDataSetActionCreators from '../actions/relatedDataSetActions';
 
+import CollapsiblePanel from './CollapsiblePanel';
 import RelatedData from './RelatedData';
 import * as relatedDataActionCreators from '../actions/relatedDataActions';
 import bindIndexToActionCreators from '../actions/bindIndexToActionCreators';
 
 import uuidv4 from 'uuid/v4'
-
-import asCollapsiblePanel from './CollapsiblePanelHoc';
-const CollapsibleRelatedData = asCollapsiblePanel(RelatedData);
 
 var wrappedRelatedDataActionCreators =
 	index =>
@@ -53,14 +51,18 @@ class RelatedDataSet extends Component {
 
 						{/*<h3><hr className="subSubBreaker"/></h3>*/}
 
-						<CollapsibleRelatedData
+						<CollapsiblePanel
 							namespace="relatedDataPanel"
 							title="Related Data: "
 							titleName={relatedDataSet[relatedDataKey].name}
 
-							targetKey={relatedDataKey}
-							relatedData={relatedDataSet[relatedDataKey]}
-							{...wrappedRelatedDataActionCreators(relatedDataKey)(props.dispatch)}
+							render={() => {
+								return <RelatedData
+									targetKey={relatedDataKey}
+									relatedData={relatedDataSet[relatedDataKey]}
+									{...wrappedRelatedDataActionCreators(relatedDataKey)(props.dispatch)}
+								/>
+							}}
 						/>
 
 						<RemoveButton
